@@ -9,12 +9,15 @@ const addSchema = Joi.object({
   email: Joi.string()
     .min(10)
     .max(40)
-    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "org"] } })
+    .email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com", "net", "org", "uk", "ca"] },
+    })
     .messages({
       "string.min": "email minimum 10 character required",
       "string.max": "email maximum 40 character",
       "string.email":
-        "not valid email: '@' required, must have 'com','net','org' domain segment",
+        "not valid email: '@' required, must have 'com','net','org','uk','ca' domain segment",
       "any.required": "missing required email field",
     })
     .required(),
@@ -23,6 +26,18 @@ const addSchema = Joi.object({
     "string.max": "phone maximum 20 character required",
     "any.required": "missing required phone field",
   }),
+  favorite: Joi.boolean().messages({
+    "boolean.base": "favorite must be a boolean",
+  }),
 });
 
-module.exports = { addSchema };
+const updateFavoriteSchema = Joi.object({
+  favorite: Joi.boolean()
+    .required()
+    .messages({
+      "any.required": "favorite fild is required",
+      "boolean.base": "favorite must be a boolean",
+    }),
+});
+
+module.exports = { addSchema, updateFavoriteSchema };
