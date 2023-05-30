@@ -31,13 +31,11 @@ const addSchema = Joi.object({
   }),
 });
 
-const updateFavoriteSchema = Joi.object({
-  favorite: Joi.boolean()
-    .required()
-    .messages({
-      "any.required": "favorite fild is required",
-      "boolean.base": "favorite must be a boolean",
-    }),
+const favoriteFieldSchema = Joi.object({
+  favorite: Joi.boolean().required().messages({
+    "any.required": "favorite fild is required",
+    "boolean.base": "favorite must be a boolean",
+  }),
 });
 
-module.exports = { addSchema, updateFavoriteSchema };
+module.exports = { addSchema, favoriteFieldSchema };
