@@ -6,6 +6,7 @@ const {
   validateBody,
   authenticate,
   validateSubscriptionField,
+  upload,
 } = require("../../middlewares");
 
 const schemas = require("../../schemas/user");
@@ -29,6 +30,13 @@ router.patch(
   authenticate,
   validateSubscriptionField(schemas.updateSubscriptionSchema),
   controllers.updateSubscriptionUser
+);
+
+router.patch(
+  "/avatars",
+  authenticate,
+  upload.single("avatar"),
+  controllers.updateAvatar
 );
 
 module.exports = router;
