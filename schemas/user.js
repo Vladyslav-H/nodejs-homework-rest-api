@@ -55,8 +55,27 @@ const updateSubscriptionSchema = Joi.object({
     }),
 });
 
+const emailSchema = Joi.object({
+  email: Joi.string()
+    .min(10)
+    .max(40)
+    .email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com", "net", "org", "uk", "ca"] },
+    })
+    .required()
+    .messages({
+      "string.min": "email minimum 10 character required",
+      "string.max": "email maximum 40 character",
+      "string.email":
+        "not valid email: '@' required, must have 'com','net','org','uk','ca' domain segment",
+      "any.required": "email is required field",
+    }),
+});
+
 module.exports = {
   registerSchema,
   loginSchema,
   updateSubscriptionSchema,
+  emailSchema,
 };
